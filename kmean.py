@@ -29,3 +29,30 @@ print("model\n", model)
 
 centers = model.cluster_centers_
 print(centers)
+
+# Function that creates a DataFrame with a column for Cluster Number, a coluna é nomeada de prediction
+def pd_centers(featuresUsed, centers):
+	colNames = list(featuresUsed)
+	colNames.append('prediction')
+
+	# Zip with a column called 'prediction' (index)
+	Z = [np.append(A, index) for index, A in enumerate(centers)]
+
+	# Convert to pandas data frame for plotting
+	P = pd.DataFrame(Z, columns=colNames)
+	P['prediction'] = P['prediction'].astype(int)
+	return P
+
+
+# Function that creates Parallel Plots
+def parallel_plot(data):
+	my_colors = list(islice(['b','r','g','y','k','c','orange','magenta','purple','brown','pink','cyan'], None, len(P)))
+	plt.figure(figsize=(15,8)).gca().axes.set_ylim([-30,+30])
+	parallel_coordinates(P, 'prediction', color = my_colors, marker='o')
+
+
+P = pd_centers(features, centers)
+
+parallel_plot(P[P['UMIDADE RELATIVA DO AR, HORARIA(%)'] < -.5])
+
+plt.show()
