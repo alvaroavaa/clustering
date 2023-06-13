@@ -13,7 +13,7 @@ from sklearn.metrics import adjusted_rand_score
 from sklearn import metrics
 
 
-glass = pd.read_csv('/home/alvaro/programacao/cursos/clustering/Data_Script/section7/glassClass.csv')
+glass = pd.read_csv('glassClass.csv')
 
 le = LabelEncoder()
 le.fit(glass['Type'])
